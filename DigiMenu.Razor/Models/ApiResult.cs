@@ -1,4 +1,4 @@
-﻿namespace DigiMenu.Razor.Infrastructure
+﻿namespace DigiMenu.Razor.Models
 {
     public class ApiResult
     {

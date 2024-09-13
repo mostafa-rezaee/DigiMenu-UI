@@ -1,4 +1,4 @@
-﻿using DigiMenu.Razor.Infrastructure;
+﻿using DigiMenu.Razor.Models;
 using DigiMenu.Razor.Models.Authentication;
 
 namespace DigiMenu.Razor.Services.Authentications
