@@ -1,0 +1,48 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>@ViewData["Title"]</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" type="image/png" href="/favicon.ico" />
+
+	<link rel="stylesheet" type="text/css" href="/lib/bootstrap/dist/css/bootstrap-grid.min.css">
+
+	<link rel="stylesheet" type="text/css" href="/lib/font-awesome/css/font-awesome.min.css">
+
+	<link rel="stylesheet" type="text/css" href="/lib/animate/animate.css">
+
+	<link rel="stylesheet" type="text/css" href="/lib/hamburgers/hamburgers.min.css">
+
+	<link rel="stylesheet" type="text/css" href="/lib/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/global.css">
+	<link rel="stylesheet" type="text/css" href="/assets/util.css">
+	<link rel="stylesheet" type="text/css" href="/assets/auth_main.css">
+	
+	<meta name="robots" content="noindex, follow">
+</head>
+<body>
+	<div class="limiter">
+		@RenderBody()
+	</div>
+
+	<script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/sweetalert2/sweetalert2.js"></script>
+	<script src="/lib/bootstrap/dist/js/popper.js"></script>
+	<script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<script src="/lib/select2/select2.min.js"></script>
+
+	<script src="/lib/tilt/tilt.jquery.min.js"></script>
+	<script>
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+	<script src="/global.js"></script>
+	<script src="/assets/js/auth_main.js"></script>
+	<partial name="_ValidationScriptsPartial" />
+</body>
+</html>

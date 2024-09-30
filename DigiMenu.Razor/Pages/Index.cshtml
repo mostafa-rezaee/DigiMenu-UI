@@ -1,10 +1,148 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "بالدی بال";
 }
+@section Styles{
+    <link rel="stylesheet" href="/lib/swiper/css/swiper-bundle.min.css" />
+}
+<section id="category_container" class="cat-swiper-c">
+    <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class='swiper-slide cat-item'>
+                <figure class="cat-image">
+                    <img src="/images/cat1.jpg" alt="" />
+                    <a href="#" class="menu-link menu-link-visible">
+                        <img src="/images/list.png" alt="" />
+                    </a>
+                </figure>
+                <div class='cat-info'>
+                    <h3>گروه 1</h3>
+                </div>
+            </div>
+            <div class='swiper-slide cat-item'>
+                <figure class="cat-image">
+                    <img src="/images/cat1.jpg" alt="" />
+                    <a href="#" class="menu-link">
+                        <img src="/images/list.png" alt="" />
+                    </a>
+                </figure>
+                <div class='cat-info'>
+                    <h3>گروه 2</h3>
+                </div>
+            </div>
+            <div class='swiper-slide cat-item'>
+                <figure class="cat-image">
+                    <img src="/images/cat1.jpg" alt="" />
+                    <a href="#" class="menu-link">
+                        <img src="/images/list.png" alt="" />
+                    </a>
+                </figure>
+                <div class='cat-info'>
+                    <h3>گروه 3</h3>
+                </div>
+            </div>
+        </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+    </div>
+
+</section>
+<section id="menu_container" class="menu-container">
+    <ul class='menu-item-list'>
+        <li class='menu-item'>
+            <figure class="menu-image">
+                <img src="/images/cat1.jpg" alt="" />
+            </figure>
+            <div class='menu-info'>
+                <h3>"محصول 1"</h3>
+                <p>1000000 تومان</p>
+            </div>
+        </li>
+        <li class='menu-item'>
+            <figure class="menu-image">
+                <img src="/images/cat1.jpg" alt="" />
+            </figure>
+            <div class='menu-info'>
+                <h3>"محصول 1"</h3>
+                <p>1000000 تومان</p>
+            </div>
+        </li>
+        <li class='menu-item'>
+            <figure class="menu-image">
+                <img src="/images/cat1.jpg" alt="" />
+            </figure>
+            <div class='menu-info'>
+                <h3>"محصول 1"</h3>
+                <p>1000000 تومان</p>
+            </div>
+        </li>
+    </ul>
+</section>
+
+@section Scripts {
+    <script src="/lib/swiper/js/swiper-bundle.min.js" type="text/javascript"></script>
+    <script>
+        var swiper = new Swiper(".swiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: false,
+            },
+            pagination: false,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            on: {
+                slideChange: function () {
+                    var that = this;
+                    setTimeout(function () {
+                        let slideElem = that.slides[that.activeIndex];
+                        let link = slideElem.getElementsByTagName("a")[0];
+
+                        var links = document.getElementsByClassName('menu-link');
+                        for (var i = 0; i < links.length; i++) {
+                            removeClass(links[i], "menu-link-visible");
+                        }
+
+                        addClass(link, "menu-link-visible");
+
+                    }, 200);
+                }
+            }
+
+        });
+
+        (function () {
+            var links = document.getElementsByClassName('menu-link');
+
+            var scrollToProducts = function () {
+                var my_element = document.getElementById("menu_container");
+                my_element.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                    inline: "start"
+                });
+            };
+
+            for (var i = 0; i < links.length; i++) {
+                links[i].addEventListener('click', scrollToProducts, false);
+
+            }
+
+        })();
+
+    </script>
+}

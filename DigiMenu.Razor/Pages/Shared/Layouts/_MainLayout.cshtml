@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description"
+          content="منوی کافه بالدی بال شعبه نازی آباد" />
+    @* <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> *@
+
+    <link rel="stylesheet" href="/assets/global.css" />
+    <link rel="stylesheet" href="/assets/icomoon.css" />
+    
+    @await RenderSectionAsync("Styles", false)
+    <link rel="stylesheet" href="/assets/style.css" />
+    <title>@ViewData["Title"] - منوی کافه</title>
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <div id="root">
+        <div class="App">
+            <partial name="_Header" />
+
+            @RenderBody()
+            
+            <partial name="_Footer" />
+        </div>
+    </div>
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/sweetalert2/sweetalert2.js"></script>
+    <script src="/global.js"></script>
+    @await RenderSectionAsync("Scripts", false);
+    <script>
+        function hasClass(el, className) {
+            if (el.classList)
+                return el.classList.contains(className);
+            return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+        }
+
+        function addClass(el, className) {
+            if (el.classList)
+                el.classList.add(className)
+            else if (!hasClass(el, className))
+                el.className += " " + className;
+        }
+
+        function removeClass(el, className) {
+            if (el.classList)
+                el.classList.remove(className)
+            else if (hasClass(el, className)) {
+                var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+                el.className = el.className.replace(reg, ' ');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -21,8 +21,17 @@ namespace DigiMenu.Razor.Services.Authentications
 
         public async Task<ApiResult?> Logout()
         {
-            var requestResult = await _httpClient.PostAsync("authentication/logout", null);
-            return await requestResult.Content.ReadFromJsonAsync<ApiResult>();
+            try
+            {
+                var requestResult = await _httpClient.PostAsync("authentication/logout", null);
+                return await requestResult.Content.ReadFromJsonAsync<ApiResult>();
+            }
+            catch (Exception)
+            {
+
+                return ApiResult.Error();
+            }
+            
         }
 
         public async Task<ApiResult<LoginResponse>?> RefreshToken()
