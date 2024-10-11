@@ -7,15 +7,29 @@ using DigiMenu.Razor.Services.Roles;
 using DigiMenu.Razor.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 
 builder.Services.RegisterApiServices();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("Account", builder =>
+    {
+        builder.RequireAuthenticatedUser();
+    });
+});
+
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation().AddRazorPagesOptions(options =>
+{
+    options.Conventions.AuthorizeFolder("/Profile", "Account");
+});
 
 builder.Services.AddAuthentication(b => {
     b.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,6 +72,16 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.Use(async (context, next) => {
+    await next();
+    var status = context.Response.StatusCode;
+    if (status == 401)
+    {
+        var requestPath = context.Request.Path;
+        context.Response.Redirect($"/account/login?redirectTo={requestPath}");
+    }
+});
 
 app.UseAuthentication();
 app.UseAuthorization();

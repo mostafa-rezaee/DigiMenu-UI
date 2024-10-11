@@ -11,6 +11,7 @@
             <img src="/images/logo.png" alt="IMG">
         </div>
         <form class="login100-form" method="post">
+            @Html.HiddenFor(x => x.RedirectTo)
             <span class="login100-form-title">
                 @ViewData["Title"]
             </span>
@@ -44,11 +45,11 @@
                 </a>
             </div>
             <div class="text-center p-t-100 rtl">
-                <a class="txt2" asp-page="register">
+                @* <a class="txt2" asp-page="register">
                     ثبت نام
 
                 </a>
-                &nbsp;&nbsp;|&nbsp;&nbsp;
+                &nbsp;&nbsp;|&nbsp;&nbsp; *@
                 <a class="txt2" asp-page="../Index">
                     بازگشت به سایت
                 </a>

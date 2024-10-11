@@ -1,0 +1,59 @@
+﻿@using DigiMenu.Razor.Infrastructure
+@using DigiMenu.Razor.Services.Users
+@inject IUserService _userService;
+@{
+    var currentUser = await _userService.GetCurrentUser();
+    
+}
+<div class="col-lg-3 col-md-4 mb-md-0 mb-3 sticky-sidebar">
+    <div class="sidebar-widget">
+
+        <div class="profile-sidebar shadow-around">
+            <div class="d-flex align-items-center">
+                <div class="profile-avatar">
+                    <img src="@ServerSettings.ServerPath/images/users/avatars/@currentUser?.AvatarName" alt="avatar">
+                </div>
+                <div class="profile-info">
+                    <div class="d-block">
+                        <h6><strong>@currentUser?.FirstName @currentUser?.LastName</strong></h6>
+                    </div>
+                </div>
+            </div>
+            <div class="user-options">
+                <ul>
+                    <li>
+                        <span>خوش آمدید</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="user-menu">
+                <ul>
+                    <li>
+                        <a href="/profile">
+                            <i class="fa fa-home"></i>
+                            داشبورد
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/profile/edit">
+                            <i class="fa fa-users"></i>
+                            ویرایش پروفایل
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/profile/ChangePassword">
+                            <i class="fa fa-user-secret"></i>
+                            تغییر کلمه عبور
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/account/logout">
+                            <i class="fa fa-sign-out"></i>
+                            خروج
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

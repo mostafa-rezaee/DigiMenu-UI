@@ -1,0 +1,73 @@
+﻿@page
+@model DigiMenu.Razor.Pages.Profile.EditModel
+@{
+    ViewData["Title"] = "ویرایش اطلاعات کاربر";
+    Layout = "Layouts/_MainLayout";
+}
+@section Styles {
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/lib/font-awesome/css/font-awesome.min.css">
+}
+
+<div class="row m-container mb-5">
+    <partial name="Shared/Profile/_ProfileSideBar" />
+    <div class="col-lg-9 col-md-8 shadow-around">
+        <div class="row mb-4">
+            <div class="col-lg-12 mb-lg-0 mb-3">
+                <div class="section-title mb-2">
+                    @ViewData["Title"]
+                </div>
+                <section class="shadow-around p-3">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-lg-6 mb-4">
+                                <div class="text-sm text-muted">@Html.DisplayNameFor(x => x.FirstName):</div>
+                                <div class="form-element-row mb-0">
+                                    <input type="text" class="input-element" asp-for="FirstName" />
+                                    <span asp-validation-for="FirstName" class="val-msg"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <div class="text-sm text-muted">@Html.DisplayNameFor(x => x.LastName):</div>
+                                <div class="form-element-row mb-0">
+                                    <input type="text" class="input-element" asp-for="LastName" />
+                                    <span asp-validation-for="LastName" class="val-msg"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <div class="text-sm text-muted">@Html.DisplayNameFor(x => x.Username):</div>
+                                <div class="form-element-row mb-0">
+                                    <input type="text" class="input-element" asp-for="Username" />
+                                    <span asp-validation-for="Username" class="val-msg"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <div class="text-sm text-muted">@Html.DisplayNameFor(x => x.Avatar):</div>
+                                <div class="form-element-row mb-0">
+                                    <input type="file" class="input-element" asp-for="Avatar" />
+                                    <span asp-validation-for="Avatar" class="val-msg"></span>
+                                </div>
+
+                            </div>
+                            <div class="col-12">
+                                <div class="form-element-row text-center">
+                                    <button class="btn-element btn-success-element">
+                                        <i class="fa fa-floppy-o"></i>
+                                        ثبت
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

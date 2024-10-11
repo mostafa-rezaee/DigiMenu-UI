@@ -26,12 +26,15 @@ namespace DigiMenu.Razor.Pages.Account
 		[MinLength(6, ErrorMessage = "طول رمزعبور باید از 6 کاراکتر بیشتر باشد" )]
 		public string Password { get; set; }
 
-		public IActionResult OnGet()
+		public string RedirectTo { get; set; }
+
+		public IActionResult OnGet(string redirectTo)
         {
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 return Redirect("/");
             }
+			RedirectTo = redirectTo;
             return Page();
         }
 
@@ -53,6 +56,10 @@ namespace DigiMenu.Razor.Pages.Account
 				HttpContext.Response.Cookies.Append("token", token);
                 HttpContext.Response.Cookies.Append("refresh-token", token);
             }
+			if (!string.IsNullOrWhiteSpace(RedirectTo))
+			{
+				return LocalRedirect(RedirectTo);
+			}
 			return Redirect("/");
 		}
     }

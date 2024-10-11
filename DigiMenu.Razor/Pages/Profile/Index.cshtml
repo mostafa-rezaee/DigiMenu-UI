@@ -1,0 +1,60 @@
+﻿@page
+@model DigiMenu.Razor.Pages.Profile.IndexModel
+@{
+    ViewData["Title"] = "پروفایل کاربری";
+    Layout = "Layouts/_MainLayout";
+}
+@section Styles{
+    <link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/lib/font-awesome/css/font-awesome.min.css">
+}
+
+<div class="row m-container mb-5">
+    <partial name="Shared/Profile/_ProfileSideBar" />
+    <div class="col-lg-9 col-md-8 shadow-around">
+        <div class="row mb-4">
+            <div class="col-lg-6 mb-lg-0 mb-3">
+                <div class="section-title mb-2">
+                    اطلاعات شخصی
+                </div>
+                <section class="shadow-around p-3">
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <div class="text-sm text-muted">@Html.DisplayNameFor(x => x.FullName):</div>
+                            <div class="text-dark font-weight-bold">@Model.FullName</div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="text-sm text-muted">@Html.DisplayNameFor(x => x.MobileNumber):</div>
+                            <div class="text-dark font-weight-bold">@Model.MobileNumber</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-center">
+                                <a href="profile/edit" class="link--with-border-bottom">
+                                    <i class="fa fa-edit"></i>
+                                    ویرایش اطلاعات
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-6 mb-lg-0 mb-3">
+                <div class="section-title mb-2">
+                    لیست آخرین علاقه‌مندی‌ها
+                </div>
+                <section class="shadow-around p-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <a href="#" class="link--with-border-bottom">
+                                    <i class="fa fa-edit"></i>
+                                    مشاهده و ویرایش لیست مورد علاقه
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

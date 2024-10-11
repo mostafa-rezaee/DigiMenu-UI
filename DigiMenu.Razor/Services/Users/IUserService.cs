@@ -12,6 +12,7 @@ namespace DigiMenu.Razor.Services.Users
 
         Task<ApiResult?> CreateUser(CreateUserCommand command);
         Task<ApiResult?> EditUser(EditUserCommand command);
+        Task<ApiResult?> EditUserCurrent(EditUserModel command);
         Task<ApiResult?> ChangePassword(ChangePasswordCommand command);
     }
 }

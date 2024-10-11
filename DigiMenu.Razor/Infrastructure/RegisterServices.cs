@@ -11,7 +11,7 @@ namespace DigiMenu.Razor.Infrastructure
     {
         public static IServiceCollection RegisterApiServices(this IServiceCollection services)
         {
-            var baseAddress = "https://localhost:44357/api/";
+            var baseAddress = $"{ServerSettings.ServerPath}/api/";
 
             services.AddHttpContextAccessor();
             services.AddScoped<HttpClientAuthorizationDelegatingHandler>();

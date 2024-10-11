@@ -15,7 +15,7 @@ namespace DigiMenu.Razor.Services.Users
 
         public async Task<ApiResult?> ChangePassword(ChangePasswordCommand command)
         {
-            var result = await _httpClient.PostAsJsonAsync("user/changePassword", command);
+            var result = await _httpClient.PutAsJsonAsync("user/changePassword", command);
             return await result.Content.ReadFromJsonAsync<ApiResult>();
         }
 
@@ -31,9 +31,22 @@ namespace DigiMenu.Razor.Services.Users
             formData.Add(new StringContent(command.Id.ToString()), "id");
             formData.Add(new StringContent(command.FirstName), "firstName");
             formData.Add(new StringContent(command.LastName), "lastName");
-            formData.Add(new StreamContent(command.AvatarImage.OpenReadStream()), "avatar");
+            if (command.AvatarImage != null)
+                formData.Add(new StreamContent(command.AvatarImage.OpenReadStream()), "avatar");
             formData.Add(new StringContent(command.Username), "username");
             var result = await _httpClient.PutAsync("user", formData);
+            return await result.Content.ReadFromJsonAsync<ApiResult>();
+        }
+
+        public async Task<ApiResult?> EditUserCurrent(EditUserModel command)
+        {
+            var formData = new MultipartFormDataContent();
+            formData.Add(new StringContent(command.FirstName), "firstName");
+            formData.Add(new StringContent(command.LastName), "lastName");
+            if (command.Avatar != null)
+                formData.Add(new StreamContent(command.Avatar.OpenReadStream()), "avatar", command.Avatar.FileName);
+            formData.Add(new StringContent(command.Username), "username");
+            var result = await _httpClient.PutAsync("user/current", formData);
             return await result.Content.ReadFromJsonAsync<ApiResult>();
         }
 
