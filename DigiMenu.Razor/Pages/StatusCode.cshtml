@@ -1,0 +1,15 @@
+﻿@page
+@model DigiMenu.Razor.Pages.StatusCodeModel
+@{
+    ViewData["Title"] = "خطا";
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.rtl.min.css" rel="stylesheet" />
+<div style="margin-top: 10em;text-align: center;">
+    <h1 class="text-danger">خطا:</h1>
+    <h2 class="text-danger">@Model.ErrorMessage</h2>
+
+    <a asp-page="Index" class="btn btn-success mb-2">
+        بازگشت به صفحه اصلی
+    </a>
+</div>
+

@@ -1,0 +1,47 @@
+﻿@page
+@model DigiMenu.Razor.Pages.Admin.Categories.AddModel
+@{
+    ViewData["title"] = "ثبت دسته بندی جدید";
+    ViewData["selected"] = "products_categories";
+}
+<h3>@ViewData["title"]</h3>
+
+<form class="card" method="post" enctype="multipart/form-data">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.Title)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.Image)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.IsVisible)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.SeoData.MetaTitle)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.SeoData.MetaKeywords)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.SeoData.MetaDescription)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.SeoData.Canonicial)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.SeoData.IsIndexed)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.SeoData.Schema)
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit />
+    </div>
+</form>

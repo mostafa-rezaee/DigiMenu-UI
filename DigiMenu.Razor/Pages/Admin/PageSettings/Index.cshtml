@@ -1,0 +1,43 @@
+﻿@page 
+@model DigiMenu.Razor.Pages.Admin.PageSettings.IndexModel
+@{
+    ViewData["Title"] = "تنظیمات صفحه منو";
+    ViewData["selected"] = "PageSettings";
+}
+
+<form class="card" method="post" enctype="multipart/form-data">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.PageTitle)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.BackgroundImageFile)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.LogoImageFile)
+            </div>
+
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.WebsiteAddress)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.SocialTitle)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.SocialAddress)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.Telephone)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.Address)
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit />
+    </div>
+</form>
+<input type="hidden" value="@Model.PageId" />

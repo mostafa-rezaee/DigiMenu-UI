@@ -21,10 +21,10 @@ namespace DigiMenu.Razor.Services.Products
             var formData = new MultipartFormDataContent();
             formData.Add(new StringContent(command.Title), "title");
             formData.Add(new StringContent(command.CategoryId.ToString()), "categoryId");
-            formData.Add(new StreamContent(command.ImageFile.OpenReadStream()), "image");
+            formData.Add(new StreamContent(command.Image.OpenReadStream()), "image", command.Image.FileName);
             formData.Add(new StringContent(command.Price.ToString()), "price");
             formData.Add(new StringContent((command.LikeCount??0).ToString()), "likeCount");
-            formData.Add(new StringContent((command.IsVisible??true).ToString()), "isVisible");
+            formData.Add(new StringContent((command.IsVisible).ToString()), "isVisible");
             formData.Add(new StringContent(command.Description??""), "description");
             formData.Add(new StringContent(command.SeoData?.MetaDescription ?? ""), "seoData.MetaDescription");
             formData.Add(new StringContent(command.SeoData?.MetaTitle ?? ""), "seoData.MetaTitle");
@@ -43,10 +43,11 @@ namespace DigiMenu.Razor.Services.Products
             formData.Add(new StringContent(command.Id.ToString()), "id");
             formData.Add(new StringContent(command.Title), "title");
             formData.Add(new StringContent(command.CategoryId.ToString()), "categoryId");
-            formData.Add(new StreamContent(command.ImageFile.OpenReadStream()), "image");
+            if (command.ImageFile != null)
+                formData.Add(new StreamContent(command.ImageFile.OpenReadStream()), "image", command.ImageFile.FileName);
             formData.Add(new StringContent(command.Price.ToString()), "price");
             formData.Add(new StringContent((command.LikeCount ?? 0).ToString()), "likeCount");
-            formData.Add(new StringContent((command.IsVisible ?? true).ToString()), "isVisible");
+            formData.Add(new StringContent((command.IsVisible).ToString()), "isVisible");
             formData.Add(new StringContent(command.Description ?? ""), "description");
             formData.Add(new StringContent(command.SeoData?.MetaDescription ?? ""), "seoData.MetaDescription");
             formData.Add(new StringContent(command.SeoData?.MetaTitle ?? ""), "seoData.MetaTitle");
@@ -75,6 +76,10 @@ namespace DigiMenu.Razor.Services.Products
         public async Task<ProductFilterResult?> GetProductsByFilter(ProductFilterParams filterParams)
         {
             var url = filterParams.GenerateBaseFilterUrl("product");
+            if (filterParams.Id != null)
+            {
+                url += $"&id={filterParams.Id}";
+            }
             if (filterParams.CategoryId != null)
             {
                 url += $"&categoryId={filterParams.CategoryId}";
@@ -90,7 +95,7 @@ namespace DigiMenu.Razor.Services.Products
         public async Task<ApiResult?> AddProductImage(AddProductImageCommand command)
         {
             var formData = new MultipartFormDataContent();
-            formData.Add(new StreamContent(command.ImageFile.OpenReadStream()), "ImageFile");
+            formData.Add(new StreamContent(command.ImageFile.OpenReadStream()), "ImageFile", command.ImageFile.FileName);
             formData.Add(new StringContent(command.ProductId.ToString()), "ProductId");
             formData.Add(new StringContent(command.DisplayOrder.ToString()), "DisplayOrder");
             var result = await _httpClient.PostAsync("product/image", formData);

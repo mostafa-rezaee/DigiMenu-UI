@@ -5,7 +5,7 @@
         public string Title { get; set; }
         public string ImageName { get; set; }
 
-        public bool IsVisible { get; }
+        public bool IsVisible { get; set; }
         public SeoData SeoData { get; set; }
     }
 }

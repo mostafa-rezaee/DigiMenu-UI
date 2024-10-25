@@ -1,0 +1,29 @@
+﻿@page
+@model DigiMenu.Razor.Pages.Admin.Users.AddModel
+@{
+    ViewData["title"] = "افزودن کاربر";
+    ViewData["selected"] = "users";
+}
+
+<form class="card" method="post">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.FirstName)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.LastName)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.Username)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.Password)
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit />
+    </div>
+</form>

@@ -1,0 +1,32 @@
+﻿@page "{id?}"
+@model DigiMenu.Razor.Pages.Admin.Users.EditModel
+@{
+    ViewData["title"] = "ویرایش کاربر";
+    ViewData["selected"] = "users";
+}
+
+<form class="card" method="post" enctype="multipart/form-data">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.FirstName)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.LastName)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.Username)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.AvatarImage)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.IsActive)
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit />
+    </div>
+</form>

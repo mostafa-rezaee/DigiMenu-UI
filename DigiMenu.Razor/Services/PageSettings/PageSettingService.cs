@@ -16,8 +16,10 @@ namespace DigiMenu.Razor.Services.PageSettings
         {
             var formData = new MultipartFormDataContent();
             formData.Add(new StringContent(model.PageTitle), "pageTitle");
-            formData.Add(new StreamContent(model.BackgroundImageFile.OpenReadStream()), "backgroundImage");
-            formData.Add(new StreamContent(model.LogoImageFile.OpenReadStream()), "logoImage");
+            //if (model.BackgroundImageFile != null)
+                formData.Add(new StreamContent(model.BackgroundImageFile.OpenReadStream()), "backgroundImageFile", model.BackgroundImageFile.FileName);
+            //if (model.LogoImageFile != null)
+                formData.Add(new StreamContent(model.LogoImageFile.OpenReadStream()), "logoImageFile", model.LogoImageFile.FileName);
             formData.Add(new StringContent(model.WebsiteAddress), "websiteAddress");
             formData.Add(new StringContent(model.SocialTitle), "socialTitle");
             formData.Add(new StringContent(model.SocialAddress), "socialAddress");
@@ -34,8 +36,10 @@ namespace DigiMenu.Razor.Services.PageSettings
             var formData = new MultipartFormDataContent();
             formData.Add(new StringContent(model.Id.ToString()), "id");
             formData.Add(new StringContent(model.PageTitle), "pageTitle");
-            formData.Add(new StreamContent(model.BackgroundImageFile.OpenReadStream()), "backgroundImage");
-            formData.Add(new StreamContent(model.LogoImageFile.OpenReadStream()), "logoImage");
+            if (model.BackgroundImageFile != null)
+                formData.Add(new StreamContent(model.BackgroundImageFile.OpenReadStream()), "backgroundImageFile", model.BackgroundImageFile.FileName);
+            if (model.LogoImageFile != null)
+                formData.Add(new StreamContent(model.LogoImageFile.OpenReadStream()), "logoImageFile", model.LogoImageFile.FileName);
             formData.Add(new StringContent(model.WebsiteAddress), "websiteAddress");
             formData.Add(new StringContent(model.SocialTitle), "socialTitle");
             formData.Add(new StringContent(model.SocialAddress), "socialAddress");

@@ -16,14 +16,15 @@ namespace DigiMenu.Razor.Services.Categories
         {
             var formData = new MultipartFormDataContent();
             formData.Add(new StringContent(command.Title), "title");
-            formData.Add(new StreamContent(command.ImageFile.OpenReadStream()), "image");
+            if (command.Image != null)
+                formData.Add(new StreamContent(command.Image.OpenReadStream()), "image", command.Image.FileName);
             formData.Add(new StringContent(command.IsVisible.ToString()), "isVisible");
-            formData.Add(new StringContent(command.SeoData?.MetaDescription??""), "seoData.MetaDescription");
-            formData.Add(new StringContent(command.SeoData?.MetaTitle ?? ""), "seoData.MetaTitle");
-            formData.Add(new StringContent(command.SeoData?.MetaKeywords ?? ""), "seoData.MetaKeywords");
-            formData.Add(new StringContent((command.SeoData?.IsIndexed??false).ToString()), "seoData.IsIndexed");
-            formData.Add(new StringContent(command.SeoData?.Canonicial ?? ""), "seoData.Canonicial");
-            formData.Add(new StringContent(command.SeoData?.Schema ?? ""), "seoData.Schema");
+            formData.Add(new StringContent(command.SeoData.MetaDescription ?? ""), "seoData.MetaDescription");
+            formData.Add(new StringContent(command.SeoData.MetaTitle ?? ""), "seoData.MetaTitle");
+            formData.Add(new StringContent(command.SeoData.MetaKeywords ?? ""), "seoData.MetaKeywords");
+            formData.Add(new StringContent((command.SeoData.IsIndexed).ToString()), "seoData.IsIndexed");
+            formData.Add(new StringContent(command.SeoData.Canonicial ?? ""), "seoData.Canonicial");
+            formData.Add(new StringContent(command.SeoData.Schema ?? ""), "seoData.Schema");
 
             var result = await _httpClient.PostAsync("category", formData);
             return await result.Content.ReadFromJsonAsync<ApiResult>();
@@ -39,8 +40,9 @@ namespace DigiMenu.Razor.Services.Categories
         {
             var formData = new MultipartFormDataContent();
             formData.Add(new StringContent(command.Id.ToString()), "id");
-            formData.Add(new StringContent(command.Title), "title");
-            formData.Add(new StreamContent(command.ImageFile.OpenReadStream()), "image");
+            formData.Add(new StringContent(command.Title), "title"); 
+            if (command.ImageFile != null)
+                formData.Add(new StreamContent(command.ImageFile.OpenReadStream()), "image", command.ImageFile.FileName);
             formData.Add(new StringContent(command.IsVisible.ToString()), "isVisible");
             formData.Add(new StringContent(command.SeoData?.MetaDescription ?? ""), "seoData.MetaDescription");
             formData.Add(new StringContent(command.SeoData?.MetaTitle ?? ""), "seoData.MetaTitle");

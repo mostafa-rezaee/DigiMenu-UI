@@ -4,6 +4,7 @@ using DigiMenu.Razor.Services.PageSettings;
 using DigiMenu.Razor.Services.Products;
 using DigiMenu.Razor.Services.Roles;
 using DigiMenu.Razor.Services.Users;
+using Microsoft.AspNetCore.Identity;
 
 namespace DigiMenu.Razor.Infrastructure
 {
@@ -42,5 +43,13 @@ namespace DigiMenu.Razor.Infrastructure
 
             return services;
         }
+
+        public static async Task AssignRolesToUser(this IServiceProvider serviceProvider)
+        {
+
+        }
+
+
+
     }
 }

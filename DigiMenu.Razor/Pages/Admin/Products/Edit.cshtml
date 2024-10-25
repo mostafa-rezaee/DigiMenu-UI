@@ -1,0 +1,66 @@
+﻿@page "{productId?}"
+@using DigiMenu.Razor.Services.Categories
+@model DigiMenu.Razor.Pages.Admin.Products.EditModel
+@inject ICategoryService _categoryService
+@{
+    ViewData["title"] = "ویرایش محصول";
+    ViewData["selected"] = "products_product";
+    var categories = await _categoryService.GetCategories();
+}
+
+<form class="card" method="post" enctype="multipart/form-data">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.Title)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.Price)
+            </div>
+            <div class="col-md-6">
+                <label asp-for="CategoryId"></label>
+                <select asp-for="CategoryId" class="form-control select2">
+                    <option value="0">انتخاب دسته بندی</option>
+                    @foreach (var item in categories)
+                    {
+                        <option value="@item.Id">@item.Title</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.Image)
+            </div>
+
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.IsVisible)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.Description)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.SeoData.MetaTitle)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.SeoData.MetaKeywords)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.SeoData.MetaDescription)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.SeoData.Canonicial)
+            </div>
+            <div class="col-md-6">
+                @Html.EditorFor(f => f.SeoData.IsIndexed)
+            </div>
+            <div class="col-md-12">
+                @Html.EditorFor(f => f.SeoData.Schema)
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-left">
+        <cancel></cancel>
+        <submit />
+    </div>
+</form>

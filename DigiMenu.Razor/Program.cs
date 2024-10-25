@@ -5,7 +5,9 @@ using DigiMenu.Razor.Services.PageSettings;
 using DigiMenu.Razor.Services.Products;
 using DigiMenu.Razor.Services.Roles;
 using DigiMenu.Razor.Services.Users;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.Text;
@@ -17,18 +19,26 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.RegisterApiServices();
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddTransient<IClaimsTransformation, MyClaimsTransformation>();
 builder.Services.AddAuthorization(option =>
 {
     option.AddPolicy("Account", builder =>
     {
         builder.RequireAuthenticatedUser();
     });
+    option.AddPolicy("Admin", builder =>
+    {
+
+        //builder.RequireAuthenticatedUser();
+        builder.RequireAssertion(context =>
+            context.User.IsInRole("Admin")|| context.User.IsInRole("Member") || context.User.IsInRole("Manager"));
+    });
 });
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation().AddRazorPagesOptions(options =>
 {
     options.Conventions.AuthorizeFolder("/Profile", "Account");
+    options.Conventions.AuthorizeFolder("/Admin", "Admin");
 });
 
 builder.Services.AddAuthentication(b => {
@@ -82,10 +92,11 @@ app.Use(async (context, next) => {
         context.Response.Redirect($"/account/login?redirectTo={requestPath}");
     }
 });
-
+app.UseStatusCodePagesWithReExecute("/StatusCode", "?statusCode={0}");
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
 
 app.Run();
+

@@ -125,7 +125,6 @@ function deleteCookie(cookieName) {
 }
 $(document).ready(function () {
     //loadCkeditor4();
-    debugger
     var result = getCookie("SystemAlert");
     if (result) {
         result = JSON.parse(result);

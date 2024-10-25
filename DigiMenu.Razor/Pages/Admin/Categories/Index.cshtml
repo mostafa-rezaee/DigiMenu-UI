@@ -1,0 +1,37 @@
+﻿@page "{handler?}"
+@using DigiMenu.Razor.Infrastructure
+@model DigiMenu.Razor.Pages.Admin.Categories.IndexModel
+@{
+    ViewData["title"] = "لیست دسته بندی ها";
+    ViewData["selected"] = "products_categories";
+}
+
+<h3>@ViewData["title"]</h3>
+<a asp-page="Add" class="btn btn-success mb-2">افزودن دسته بندی</a>
+<div class="table-responsive card card-body p-0">
+    <table class="table table-bordered mb-0">
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th>تصویر</th>
+                <th>مخفی نباشد؟</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Categories)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td><img src="@ServerSettings.ServerPath/images/categories/@item.ImageName" style="height:72px;" alt="" /></td>
+                    <td><input type="checkbox" class="form-check" onclick="return false;" @(item.IsVisible ? "checked='checked'" : "") /></td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">ویرایش</a>
+                        <delete-item url="@Url.Page("Index","Delete",new {id=item.Id})">حذف</delete-item>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

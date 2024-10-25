@@ -1,0 +1,84 @@
+﻿@page "{handler?}"
+@using DigiMenu.Razor.Infrastructure
+@using DigiMenu.Razor.Infrastructure.RazorPageUtilities
+@using DigiMenu.Razor.Services.Categories
+@model DigiMenu.Razor.Pages.Admin.Products.IndexModel
+@inject ICategoryService _categoryService
+@{
+    ViewData["title"] = "مدیریت محصولات";
+    ViewData["selected"] = "products_product";
+    var categories = await _categoryService.GetCategories();
+}
+
+<form class="card shadow-lg " method="get">
+    <div class="card-header text-left">
+        <a asp-page="Index" class="btn btn-danger btn-sm">حذف فیلتر</a>
+        <button type="submit" class="btn btn-primary btn-sm">فیلتر</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <label>شناسه محصول</label>
+                <input type="number" asp-for="FilterParams.Id" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label>عنوان محصول</label>
+                <input type="text" asp-for="FilterParams.Title" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label>دسته بندی</label>
+                <select asp-for="FilterParams.CategoryId" class="form-control select2">
+                    <option value="0">انتخاب دسته بندی</option>
+                    @foreach (var item in categories)
+                    {
+                        <option value="@item.Id">@item.Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+<a asp-page="Add" class="btn btn-success mb-2">
+    <i class="fa fa-plus"></i>
+    افرودن محصول
+</a>
+<div class="card">
+    <div class="card-body table-responsive p-0">
+        <table class="table table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th>عکس</th>
+                    <th>عنوان</th>
+                    <th>دسته بندی</th>
+                    <th>قیمت</th>
+                    <th>تاریخ ثبت</th>
+                    <th>مخفی نباشد؟</th>
+                    <th>توضیحات</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.FilterResult.Data)
+                {
+                    <tr>
+                        <td>
+                            <img src="@ServerSettings.ServerPath/@Directories.ProductImage/@item.ImageName" width="100px" />
+                        </td>
+                        <td>@item.Title</td>
+                        <td>@item.CategoryTitle</td>
+                        <td>@item.Price.ToString()</td>
+                        <td>@item.CreateDate.ToPersianDateTime()</td>
+                        <td><input type="checkbox" class="form-check" onclick="return false;" @(item.IsVisible ? "checked='checked'" : "") /></td>
+                        <td>@((item.Description??"").Length > 50 ? item.Description?.Substring(0, 50) + "..." : item.Description)</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" asp-page="Edit" asp-route-productId="@item.Id">ویرایش</a>
+                            <a asp-page="Images/Index" asp-route-productId="@item.Id" class="btn btn-warning btn-sm">مجموعه تصاویر</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

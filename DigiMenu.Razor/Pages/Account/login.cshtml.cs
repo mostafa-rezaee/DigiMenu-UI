@@ -1,5 +1,8 @@
 ﻿using DigiMenu.Razor.Models;
+using DigiMenu.Razor.Models.User;
 using DigiMenu.Razor.Services.Authentications;
+using DigiMenu.Razor.Services.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -11,10 +14,11 @@ namespace DigiMenu.Razor.Pages.Account
     public class loginModel : PageModel
     {
 		private readonly IAuthenticationService _authenticationService;
-
-        public loginModel(IAuthenticationService authenticationService)
+		private readonly IUserService _userService;
+        public loginModel(IAuthenticationService authenticationService, IUserService userService)
         {
             _authenticationService = authenticationService;
+            _userService = userService;
         }
 
         [Display(Name = "نام کاربری")]
@@ -55,6 +59,7 @@ namespace DigiMenu.Razor.Pages.Account
 				var refreshToken = result.Data.RefreshToken;
 				HttpContext.Response.Cookies.Append("token", token);
                 HttpContext.Response.Cookies.Append("refresh-token", token);
+
             }
 			if (!string.IsNullOrWhiteSpace(RedirectTo))
 			{

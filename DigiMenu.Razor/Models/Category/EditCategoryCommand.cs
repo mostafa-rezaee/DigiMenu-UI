@@ -4,7 +4,7 @@
     {
         public long Id { get; set; }
         public string Title { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
 
         public bool IsVisible { get; set; }
         public SeoData SeoData { get; set; }

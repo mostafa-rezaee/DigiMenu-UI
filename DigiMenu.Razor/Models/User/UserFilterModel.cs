@@ -24,6 +24,7 @@
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+
     }
 
     public class EditUserCommand
@@ -33,6 +34,7 @@
         public string LastName { get; set; }
         public string Username { get; set; }
         public IFormFile? AvatarImage { get; set; }
+        public bool IsActive { get; set; }
     }
 
     public class ChangePasswordCommand

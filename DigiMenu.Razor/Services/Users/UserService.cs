@@ -32,8 +32,9 @@ namespace DigiMenu.Razor.Services.Users
             formData.Add(new StringContent(command.FirstName), "firstName");
             formData.Add(new StringContent(command.LastName), "lastName");
             if (command.AvatarImage != null)
-                formData.Add(new StreamContent(command.AvatarImage.OpenReadStream()), "avatar");
+                formData.Add(new StreamContent(command.AvatarImage.OpenReadStream()), "avatar", command.AvatarImage.FileName);
             formData.Add(new StringContent(command.Username), "username");
+            formData.Add(new StringContent(command.IsActive.ToString()), "isActive");
             var result = await _httpClient.PutAsync("user", formData);
             return await result.Content.ReadFromJsonAsync<ApiResult>();
         }
